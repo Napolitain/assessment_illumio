@@ -5,7 +5,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.nio.file.Path;
 
 public class FlowLogAnalyserTest extends FlowLogAnalyser {
 
@@ -14,13 +13,13 @@ public class FlowLogAnalyserTest extends FlowLogAnalyser {
     @BeforeMethod
     public void setUp() throws IOException {
         // TODO: this part should eventually be removed and replaced with more proper test setup
-        var rootPath = Path.of(System.getProperty("user.dir"));
-        var lookupPath = Path.of(rootPath.toString(), "src/test/resources/lookup.csv");
-        var flowLogsPath = Path.of(rootPath.toString(), "src/test/resources/flow_logs.csv");
-        // Join 2 path
         flowLogAnalyser = new FlowLogAnalyser();
-        flowLogAnalyser.addLookupTableEntries(lookupPath.toFile());
-        flowLogAnalyser.parseFlowLogs(flowLogsPath.toFile());
+        var lookupStream = Main.class.getResourceAsStream("/lookup.csv");
+        var flowLogsStream = Main.class.getResourceAsStream("/flow_logs.csv");
+        var lookupReader = new java.io.InputStreamReader(lookupStream);
+        var flowLogsReader = new java.io.InputStreamReader(flowLogsStream);
+        flowLogAnalyser.addLookupTableEntries(lookupReader);
+        flowLogAnalyser.parseFlowLogs(flowLogsReader);
     }
 
     @AfterMethod

@@ -195,7 +195,7 @@ public enum ProtocolNumber {
      */
     public static ProtocolNumber protocolFromName(String name) {
         for (ProtocolNumber protocol : values()) {
-            if (protocol.name().toLowerCase().equals(name)) {
+            if (protocol.name().equalsIgnoreCase(name)) {
                 return protocol;
             }
         }

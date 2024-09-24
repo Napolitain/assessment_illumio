@@ -1,6 +1,5 @@
 package boucher.maxime;
 
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
