@@ -19,7 +19,7 @@ And then run with default files :
 docker run --rm assessment_maxime_boucher
 ```
 
-or with your files :
+or with your files (data/path/to/csv) :
 
 ```bash
 docker run --rm -v $(pwd):/app/data assessment_maxime_boucher data/src/main/resources/lookup.csv data/src/main/resources/flow_logs.csv
