@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
     testImplementation("org.testng:testng:7.4.0")
+    testImplementation("org.mockito:mockito-core:5.4.0") // or the latest version
 }
 
 tasks.test {

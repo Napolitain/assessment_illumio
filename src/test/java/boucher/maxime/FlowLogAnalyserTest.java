@@ -1,5 +1,6 @@
 package boucher.maxime;
 
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -28,26 +29,39 @@ public class FlowLogAnalyserTest extends FlowLogAnalyser {
     }
 
     @Test
-    public void testTestAddLookupTableEntries() {
-    }
-
-    @Test
-    public void testTestParseFlowLogs() {
-    }
-
-    @Test
     public void testTestCountMatches() {
         var tagCounts = flowLogAnalyser.countMatches();
-        System.out.println("Tag Counts:");
-        System.out.println("Tag,Count");
-        tagCounts.forEach((tag, count) -> System.out.println(tag + "," + count));
+        var total = 0;
+        for (var count : tagCounts.values()) {
+            total += count;
+        }
+        Assert.assertEquals(total, 14);
+        Assert.assertEquals(tagCounts.get("sv_P2").intValue(), 1);
+        Assert.assertEquals(tagCounts.get("sv_P1").intValue(), 2);
+        Assert.assertEquals(tagCounts.get("email").intValue(), 3);
+        Assert.assertEquals(tagCounts.get("Untagged").intValue(), 8);
     }
 
     @Test
     public void testTestCountPortProtocolCombinations() {
-        var portProtocolCounts = flowLogAnalyser.countPortProtocolCombinations();
-        System.out.println("Port/Protocol Combination Counts:");
-        System.out.println("Port,Protocol,Count");
-        portProtocolCounts.forEach((key, count) -> System.out.println(key + "," + count));
+        var total = 0;
+        for (var count : flowLogAnalyser.countPortProtocolCombinations().values()) {
+            total += count;
+        }
+        Assert.assertEquals(total, 14);
+        Assert.assertEquals(flowLogAnalyser.countPortProtocolCombinations().get("23,TCP").intValue(), 1);
+        Assert.assertEquals(flowLogAnalyser.countPortProtocolCombinations().get("993,TCP").intValue(), 1);
+        Assert.assertEquals(flowLogAnalyser.countPortProtocolCombinations().get("80,TCP").intValue(), 1);
+        Assert.assertEquals(flowLogAnalyser.countPortProtocolCombinations().get("49155,TCP").intValue(), 1);
+        Assert.assertEquals(flowLogAnalyser.countPortProtocolCombinations().get("25,TCP").intValue(), 1);
+        Assert.assertEquals(flowLogAnalyser.countPortProtocolCombinations().get("49157,TCP").intValue(), 1);
+        Assert.assertEquals(flowLogAnalyser.countPortProtocolCombinations().get("443,TCP").intValue(), 1);
+        Assert.assertEquals(flowLogAnalyser.countPortProtocolCombinations().get("110,TCP").intValue(), 1);
+        Assert.assertEquals(flowLogAnalyser.countPortProtocolCombinations().get("49153,TCP").intValue(), 1);
+        Assert.assertEquals(flowLogAnalyser.countPortProtocolCombinations().get("49158,TCP").intValue(), 1);
+        Assert.assertEquals(flowLogAnalyser.countPortProtocolCombinations().get("143,TCP").intValue(), 1);
+        Assert.assertEquals(flowLogAnalyser.countPortProtocolCombinations().get("49156,TCP").intValue(), 1);
+        Assert.assertEquals(flowLogAnalyser.countPortProtocolCombinations().get("49154,TCP").intValue(), 1);
+        Assert.assertEquals(flowLogAnalyser.countPortProtocolCombinations().get("1024,TCP").intValue(), 1);
     }
 }

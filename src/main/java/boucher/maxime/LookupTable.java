@@ -68,4 +68,8 @@ public class LookupTable {
     private String generateKey(int dstPort, int protocol) {
         return dstPort + "," + protocol;
     }
+
+    public Iterable<String> getTags() {
+        return lookupMap.values();
+    }
 }
